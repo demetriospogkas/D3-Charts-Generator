@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Newscycle-Bold';
+    src: url(../static/fonts/newscycle-bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Newscycle-Regular';
+    src: url(../static/fonts/newscycle-regular.ttf) format('truetype');
+}
+
+.x-axis text {
+  font-family: Newscycle-Regular;
+  font-size: 14px;
+}
+.y-axis text {
+  font-family: Newscycle-Regular;
+  font-size: 14px;
+}
+.titleLine text {
+  font-family: Newscycle-Bold;
+  font-size: 18px;
+}
+.sourceLine text {
+  font-family: Newscycle-Regular;
+  font-size: 14px;
+}
+.linePath {
+  fill: {{ fill_val }};
+  fill-opacity: {{ fill_op }};
+  stroke: {{ stroke_val }};
+  stroke-opacity: {{ stroke_op }};
+  stroke-width: {{ stroke_w }};
+}

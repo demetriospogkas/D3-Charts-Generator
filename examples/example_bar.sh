@@ -1,0 +1,1 @@
+python generate_D3.py Milwuakee-Bucks_All-Players_2016-2017.csv bar -x PPG -y PLAYER_NAME -xl "points per game" -he 500 -wm 850 5 5 -xs 0.1 600 -sfv lightblue 1 -ssv "#000000" 1 1 -t "Milwuakee Bucks 2016-2017 Season Performance" -ts "stats.nba.com" -l -lp 5055

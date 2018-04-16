@@ -1,0 +1,1 @@
+python generate_D3.py WTI_Historical_1986-2018.csv timeseries -x date -y dollars_per_barrel -xs 1/1/2000 12/31/2017 -ys 0 150 -xt 1/1/05 1/1/10 1/1/15 -yt 0 75 150 -yl "$ per barrel" -wm 800 120 60 -ssv lightblue 1 3 -t "Cushing, OK WTI Spot Price FOB, 2010-2017" -ts "U.S. Energy Information Administration" -l -lp 5084
