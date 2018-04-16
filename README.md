@@ -1,5 +1,5 @@
 # Generate D3 charts from the command line
-Python script that lets you generate from the command line D3 code base for three types of charts: bar, scatter and timeseries plots. Use it for quick previews of your charts, or build on the code base to create interactive visualizations.
+Python flask script that lets you generate from the command line D3 basic code for three types of charts: bar, scatter and timeseries plots. Use it for quick previews of your charts, or build on the generated code to create interactive visualizations.
 
 ## Usage 
 
