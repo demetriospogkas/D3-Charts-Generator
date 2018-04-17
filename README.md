@@ -23,7 +23,7 @@ python generate_D3.py Milwuakee-Bucks_All-Players_2016-2017.csv bar -x PPG -y PL
 ![D3 Charts Generator - Bars](examples/example_bar.png)
 
 ### Details
-The script is utilizing the Python [Flask](http://flask.pocoo.org) web framework (which is utilizing the [Jinja2](http://jinja.pocoo.org/) template engine) to render HTML, CSS, and JavaScript templates and build the skeleton D3 code for three types of charts: bar, scatter, and timeseries plots.
+The script is utilizing the Python [Flask](http://flask.pocoo.org) web framework (which is utilizing the [Jinja2](http://jinja.pocoo.org/) template engine) to render HTML, CSS, and JavaScript templates and the [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/) formula to build the skeleton D3 code for three types of charts: bar, scatter, and timeseries plots.
 
 When you clone the repository, you download three JavaScript and CSS templates (located in the `templates` directory). When you run the script, passing the appropriate arguments, it reads your data set and generates the D3 code for the requested plot type.
 
