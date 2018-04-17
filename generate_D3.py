@@ -15,60 +15,60 @@ import webbrowser
 def set_args():
         parser = argparse.ArgumentParser()
         parser.add_argument("data_file", type=str,
-                            help="Path to your data set file.")
+                            help="Filename of your data set. Pass just the name of the file, and not the entire path to its directory. Make sure the data set is located inside the 'static/data' directory.")
         parser.add_argument("chart_type", type=str,
                             choices=['bar', 'timeseries', 'scatter'],
-                            help="The type of chart you wish to generate. Choose between line, bar, or scatter plots.")
+                            help="The type of chart you wish to generate. Choose between 'bar', 'timeseries', or 'scatter' plots.")
 
         parser.add_argument("-l", "--localhost", action='store_true',
-                            help="If used while you 'build' the script, it will also set up a local server for previewing the output.")
+                            help="If passed, the script will also set up a local server for previewing the built plot.")
         parser.add_argument("-lp", "--localhost-port", type=str,
-                            help="If you 'run' the script or if you request a local server when you 'build', use this argument to assign a specific port to run the server. If no specific port is assigned, it defaults to 8000.")
+                            help="If you request a local server, use this argument to assign a specific port to run the server. If not passed, it defaults to 8000.")
 
         parser.add_argument("-x", "--x-axis", type=str,
-                            help="Column from your data set to used for the X axis of your plot.")
+                            help="Column from your data set to be used for the X axis of your plot. If you're generating a timeseries plot, your data must be in %%m/%%d/%%y format.")
         parser.add_argument("-y", "--y-axis", type=str,
-                            help="Column from your data set to used for the Y axis of your plot.")
+                            help="Column from your data set to be used for the Y axis of your plot.")
         parser.add_argument("-xs", "--x-axis-scale", type=str,
                             nargs='+',
-                            help="Pass a custom scale for the X axis of your plot. Pass numerical values for bar and scatter plots, and dates with %%m/%%d/%%y format for timeseries plot. Pass only min and max values. If not used, X axis scale will be automatically created from the data you're generate the X axis from.")
+                            help="Pass a custom scale for the X axis of your plot. Pass numerical values for bar and scatter plots, and dates in %%m/%%d/%%y format for timeseries plot. Pass only min and max values. If not used, X axis scale will be automatically created from the data you generate the X axis from.")
         parser.add_argument("-ys", "--y-axis-scale", type=float,
                             nargs='+',
-                            help="Pass a custom scale for the Y axis of your plot. Use it only for bar and scatter plots. Pass only min and max values. If not used, Y axis scale will be automatically created from the data you're generate the Y axis from.")
+                            help="Pass a custom scale for the Y axis of your plot. Use it only for scatter and timeseries plots. Pass only min and max values. If not used, Y axis scale will be automatically created from the data you generate the Y axis from.")
         parser.add_argument("-he", "--height", type=int,
-                            help="Pass a custom height for your plot. Use it only for bar plot to adjust the scale of the y axis. If not used, it defaults to 1200.")
+                            help="Pass a custom height for your plot. Use it only for bar plot to adjust the scale of the y axis. If not passed, a default value will be used.")
         parser.add_argument("-xt", "--x-axis-ticks", type=str,
                             nargs='+',
-                            help="Pass custom ticks to the x-axis of your plot. Use it only for scatter and timeseries plots. Enter 1 value if you want to specify the number of ticks D3 should generate, or enter multiple values to create a custom list of ticks. If not used, it defaults to the default D3 behavior.")
+                            help="Pass custom ticks to the X axis of your plot. Use it only for scatter and timeseries plots. Pass dates in %%m/%%d/%%y format for timeseries plot. Enter 1 value if you want to specify the number of ticks D3 should generate, or enter multiple values to create a custom list of ticks. If not used, it defaults to the default D3 behavior.")
         parser.add_argument("-yt", "--y-axis-ticks", type=float,
                             nargs='+',
-                            help="Pass custom ticks to the y-axis of your plot. Use it only for scatter and timeseries plots. Enter 1 value if you want to specify the number of ticks D3 should generate, or enter multiple values to create a custom list of ticks. If not used, it defaults to the default D3 behavior.")
+                            help="Pass custom ticks to the Y axis of your plot. Use it only for scatter and timeseries plots. Enter 1 value if you want to specify the number of ticks D3 should generate, or enter multiple values to create a custom list of ticks. If not used, it defaults to the default D3 behavior.")
         parser.add_argument("-xl", "--x-axis-label", type=str,
-                            help="Specify a key label for the x-axis ticks of your plot. It will be added to the last tick of the axis. Use it only for the bar and scatter plots.")
+                            help="Specify a key label for the X axis ticks of your plot. It will be added to the last tick of the axis. Use it only for the bar and scatter plots.")
         parser.add_argument("-yl", "--y-axis-label", type=str,
-                            help="Specify a key label for the y-axis ticks of your plot. It will be added to the last tick of the axis. Use it only for the scatter and timeseries plots.")
+                            help="Specify a key label for the Y axis ticks of your plot. It will be added to the last tick of the axis. Use it only for the scatter and timeseries plots.")
 
         parser.add_argument("-r", "--radius", type=str,
-                            help="Column from your data set to be used for the radius scale of your scatter plot. If not used all dots in your scatter plot will have a default radius of 7px.")
+                            help="Column from your data set to be used for the radius scale of your scatter plot. If not passed, a default value will be used for all dots in the plot.")
         parser.add_argument("-rs", "--radius-scale", type=str,
                             nargs='+',
-                            help="Pass a custom scale for the radius scale domain of your scatter plot. If not used, it will default to a domain of [3,45].")
+                            help="Pass a custom scale for the domain of the radius scale of your scatter plot. If not passed, default values will be used.")
 
         parser.add_argument("-wm", "--widths-margins", type=int,
                             nargs='+',
-                            help="Specify the width, the left margin and the right margin of the SVG element of the plot. Pass exactly 3 values. If not used, default values will be passed.")
+                            help="Specify the width, the left margin and the right margin of the SVG element of the plot. Pass exactly 3 values. If not passed, default values will be used. If you're generating a bar plot and it's passed along with a custom X axis scale, the width value passed will be overwritten and recalculated if it's less than 200px bigger than the X axis scale, in order to fit bar labels in the plot.")
 
         parser.add_argument("-sfv", "--style-fill-values", type=str,
                             nargs='+',
-                            help="Pass custom fill styles for the elements of your plot. Accepts only two values (color and opacity).")
+                            help="Pass custom fill styles for the elements of your plot. Accepts exactly two values (color and opacity). It will be dropped if it's passed in a timeseries (line) plot. If not passed, default values will be used.")
         parser.add_argument("-ssv", "--style-stroke-values", type=str,
                             nargs='+',
-                            help="Pass custom stroke styles for the elements of your plots. Accepts only three values (color, opacity and width).")
+                            help="Pass custom stroke styles for the elements of your plots. Accepts exactly three values (color, opacity and width). If not passed, default values will be used.")
 
         parser.add_argument("-t", "--title", type=str,
-                            help="Set title for the map. If not specified the name of the data file will be used.")
+                            help="Set title for the plot. If not passed, the name of the data file will be used.")
         parser.add_argument("-ts", "--title-source", type=str,
-                            help="Set source line. If not specified source line will return empty.")
+                            help="Set source line. If not passed, source line will return empty.")
 
         return parser.parse_args()
 

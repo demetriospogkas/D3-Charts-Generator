@@ -23,13 +23,43 @@ python generate_D3.py Milwuakee-Bucks_All-Players_2016-2017.csv bar -x PPG -y PL
 ![D3 Charts Generator - Bars](examples/example_bar.png)
 
 ### Details
+The script is utilizing the Python [Flask](http://flask.pocoo.org) web framework (which is utilizing the [Jinja2](http://jinja.pocoo.org/) template engine) to render HTML, CSS, and JavaScript templates and build the skeleton D3 code for three types of charts: bar, scatter, and timeseries plots.
 
+When you clone the repository, you download three JavaScript and CSS templates (located in the `templates` directory). When you run the script, passing the appropriate arguments, it reads your data set and generates the D3 code for the requested plot type.
+
+In order to use the script you need to pass at least two positional arguments: the filename of the CSV you want to create the D3 chart from (it needs to be located in the `static/data` directory; and the type of D3 chart you want to create.
+
+In order to generate your chart and customize its styles, you can use the optional arguments/flags below. Some arguments are required for generating the charts (for example scales) and if they're not passed in the script run, you will be prompted to input them later on. For truly optional arguments, if they're not passed the script will generate default values.
+
+The generated code for your D3 charts will be saved in the `build` directory and you can request setting up a local server to preview the outputs.
+
+Run as `python generate_D3.py -h` for help and documentation.
 
 #### Positional arguments
 
+`data_file`: Filename of your data set. Pass just the name of the file, and not the entire path to its directory. Make sure the data set is located inside the `static/data` directory.
+
+`chart_type`: The type of chart you wish to generate. Choose between `bar`, `timeseries`, or `scatter` plots.
 
 #### Optional Arguments / Flags
-
+`-x`, `--x-axis`: Column from your data set to be used for the X axis of your plot. If you're generating a timeseries plot, your data must be in `%m/%d/%y` format.  
+`-y`, `--y-axis`: Column from your data set to be used for the Y axis of your plot.  
+`-xs`, `--x-axis-scale`: Pass a custom scale for the X axis of your plot. Pass numerical values for bar and scatter plots, and dates in `%m/%d/%y` format for timeseries plot. Pass only min and max values. If not used, X axis scale will be automatically created from the data you generate the X axis from.  
+`-ys`, `--y-axis-scale`: Pass a custom scale for the Y axis of your plot. Use it only for scatter and timeseries plots. Pass only min and max values. If not used, Y axis scale will be automatically created from the data you generate the Y axis from.  
+`-he`, `--height`: Pass a custom height for your plot. Use it only for bar plot to adjust the scale of the y axis. If not passed, a default value will be used.  
+`-xt`, `--x-axis-ticks`: Pass custom ticks to the X axis of your plot. Use it only for scatter and timeseries plots. Pass dates in `%m/%d/%y` format for timeseries plot. Enter 1 value if you want to specify the number of ticks D3 should generate, or enter multiple values to create a custom list of ticks. If not used, it defaults to the default D3 behavior.  
+`-yt`, `--y-axis-ticks`: Pass custom ticks to the Y axis of your plot. Use it only for scatter and timeseries plots. Enter 1 value if you want to specify the number of ticks D3 should generate, or enter multiple values to create a custom list of ticks. If not used, it defaults to the default D3 behavior.  
+`-xl`, `--x-axis-label`: Specify a key label for the X axis ticks of your plot. It will be added to the last tick of the axis. Use it only for the bar and scatter plots.  
+`-yl`, `--y-axis-label`: Specify a key label for the Y axis ticks of your plot. It will be added to the last tick of the axis. Use it only for the scatter and timeseries plots.  
+`-r`, `--radius`: Column from your data set to be used for the radius scale of your scatter plot. If not passed, a default value will be used for all dots in the plot.  
+`-rs`, `--radius-scale`: Pass a custom scale for the domain of the radius scale of your scatter plot. If not passed, default values will be used.  
+`-wm`, `--widths-margins`: Specify the width, the left margin and the right margin of the SVG element of the plot. Pass exactly 3 values. If not passed, default values will be used. If you're generating a bar plot and it's passed along with a custom X axis scale, the width value passed will be overwritten and recalculated if it's less than 200px bigger than the X axis scale, in order to fit bar labels in the plot.  
+`-sfv`, `--style-fill-values`: Pass custom fill styles for the elements of your plot. Accepts exactly two values (color and opacity). It will be dropped if it's passed in a timeseries (line) plot. If not passed, default values will be used.  
+`-ssv`, `--style-stroke-values`: Pass custom stroke styles for the elements of your plots. Accepts exactly three values (color, opacity and width). If not passed, default values will be used.  
+`-t`, `--title`: Set title for the plot. If not passed, the name of the data file will be used.  
+`-ts`, `--title-source`: Set source line. If not passed, source line will return empty.  
+`-l`, `--localhost`: If passed, the script will also set up a local server for previewing the built plot.  
+`-lp`, `--localhost-port`: If you request a local server, use this argument to assign a specific port to run it. If not passed, it defaults to 8000.
 
 ## Known issues
 
