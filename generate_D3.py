@@ -1,4 +1,5 @@
 import argparse
+import errno
 from flask import Flask
 from flask import render_template
 from flask_flatpages import FlatPages
@@ -7,6 +8,7 @@ import os
 import pandas as pd
 import re
 import shutil
+import socket
 import subprocess
 from termcolor import colored
 import webbrowser
@@ -399,6 +401,18 @@ def check_titles(ttl, src):
     elif not src:
       return ttl, ""
 
+def check_port(s, port):
+  PORT = int(port)
+  try:
+      s.bind(("127.0.0.1", PORT))
+  except socket.error:
+      if socket.error.errno == errno.EADDRINUSE:
+          new_port = PORT + 1
+          print(msg_warning("WARNING: Port", PORT, "is already in use. Attempting at new port:", new_port))
+          return check_port(s, new_port)
+  s.close()
+  return str(port)
+
 def initiate():
   print("Building static HTML and JS files...")
   freezer.freeze()
@@ -418,11 +432,14 @@ def initiate():
   if LOCALHOST:
     port = LOCAL_PORT if LOCAL_PORT else '8000'
     print("Setting up a local server at port", port, "...")
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    port = check_port(s, port)
+
     os.chdir('./build')
     subprocess.Popen(['python', '-m', 'http.server', port])
     print("Success.")
     print("Opening up a new browser tab...")
-    webbrowser.open_new_tab('localhost:' + port)
+    webbrowser.open_new_tab('http://localhost:' + port)
     print("Success.")
 
 
