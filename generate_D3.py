@@ -23,7 +23,7 @@ def set_args():
                             help="The type of chart you wish to generate. Choose between 'bar', 'timeseries', or 'scatter' plots.")
 
         parser.add_argument("-l", "--localhost", action='store_true',
-                            help="If passed, the script will also set up a local server for previewing the built plot.")
+                            help="If passed, the script will also set up a local server and will open up a new tab in your default browser for previewing the built plot.")
         parser.add_argument("-lp", "--localhost-port", type=str,
                             help="If you request a local server, use this argument to assign a specific port to run the server. If not passed, it defaults to 8000.")
 

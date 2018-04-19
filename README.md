@@ -23,7 +23,7 @@ python generate_D3.py Milwuakee-Bucks_All-Players_2016-2017.csv bar -x PPG -y PL
 ![D3 Charts Generator - Bars](examples/example_bar.png)
 
 ### Details
-The script is utilizing the Python [Flask](http://flask.pocoo.org) web framework (which is utilizing the [Jinja2](http://jinja.pocoo.org/) template engine) to render HTML, CSS, and JavaScript templates and the [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/) formula to build the skeleton D3 code for three types of charts: bar, scatter, and timeseries plots.
+The script is utilizing the Python [Flask](http://flask.pocoo.org) web framework (which in turn is utilizing the [Jinja2](http://jinja.pocoo.org/) template engine) to render HTML, CSS, and JavaScript templates and the [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/) formula to build the skeleton D3 code for three types of charts: bar, scatter, and timeseries plots.
 
 When you clone the repository, you download three JavaScript and CSS templates (located in the `templates` directory). When you run the script, passing the appropriate arguments, it reads your data set and generates the D3 code for the requested plot type.
 
@@ -58,13 +58,14 @@ Run as `python generate_D3.py -h` for help and documentation.
 `-ssv`, `--style-stroke-values`: Pass custom stroke styles for the elements of your plots. Accepts exactly three values (color, opacity and width). If not passed, default values will be used.  
 `-t`, `--title`: Set title for the plot. If not passed, the name of the data file will be used.  
 `-ts`, `--title-source`: Set source line. If not passed, source line will return empty.  
-`-l`, `--localhost`: If passed, the script will also set up a local server for previewing the built plot.  
+`-l`, `--localhost`: If passed, the script will also set up a local server and will open up a new tab in your default browser for previewing the built plot.
 `-lp`, `--localhost-port`: If you request a local server, use this argument to assign a specific port to run it. If not passed, it defaults to 8000.
 
 ## Known issues
 
 - The script only works for data sets in `.csv` format.
 - The script uses v4.2.2 of D3.
+- When localhost is terminated, the requested port stays in use. If re-run with the same port request passed, the script will sniff if the port is still in use, and if so it will skip and connect to the next available one.
 
 ## More examples
 
