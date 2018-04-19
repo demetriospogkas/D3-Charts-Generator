@@ -64,7 +64,7 @@ Run as `python generate_D3.py -h` for help and documentation.
 ## Known issues
 
 - The script only works for data sets in `.csv` format.
-- The script uses v4.2.2 of D3.
+- The script uses Python 3.6.1 and D3 v4.2.2.
 - When localhost is terminated, the requested port stays in use. If re-run with the same port request passed, the script will sniff if the port is still in use, and if so it will skip and connect to the next available one.
 
 ## More examples
@@ -85,6 +85,6 @@ python generate_D3.py WTI_Historical_1986-2018.csv timeseries -x date -y dollars
 
 ![D3 Charts Generator - Timeseries](examples/example_timeseries.png)
 
-#### Acknowledgements
+## Acknowledgements
 
 [D3 JavaScript library](https://github.com/d3/d3) created by Mike Bostock; News Cycle font by Nathan Willis via [1001fonts.com](http://www.1001fonts.com/news-cycle-font.html); the Stack Overflow community.
